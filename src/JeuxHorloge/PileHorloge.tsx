@@ -27,6 +27,7 @@ const PileHorloge: React.FC<PileHorlogeProps> = ({ pile, indexPile, deplacerCart
 export default PileHorloge; */
 import React from "react";
 import { CarteH } from "./Types";
+import Carte1 from "./Carte1";
 interface PileHorlogeProps {
   pile: CarteH[];
   indexPile: number;
@@ -35,14 +36,16 @@ interface PileHorlogeProps {
 }
 
 const PileHorloge: React.FC<PileHorlogeProps> = ({ pile, indexPile, deplacerCarte, centrale }) => {
+  console.log('pile',pile)
   return (
     <div className="pile">
       {pile.length > 0 && (
-        <img
-          src={pile[pile.length - 1].image}
-          alt="Carte"
-          style={{ width: "50px", height: "70px" }}
-        />
+        // <img
+        //   src={pile[pile.length - 1].image}
+        //   alt="Carte"
+        //   style={{ width: "50px", height: "70px" }}
+        // />
+        <Carte1 carte={pile[pile.length - 1]} />
       )}
     </div>
   );

@@ -33,6 +33,8 @@ export interface Cartes {
           `https://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=52`
         );
         const donnees = await reponse.json();
+
+        console.log('Donnees',donnees)
   
         // Vérifie si les cartes sont présentes dans la réponse
         if (donnees.cards) {

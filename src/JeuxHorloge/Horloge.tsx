@@ -144,7 +144,7 @@ const Horloge: React.FC = () => {
       pileCentrale.cartes.push({
         code: paquet[indexCarte],
         image: `https://deckofcardsapi.com/static/img/${paquet[indexCarte]}.png`,
-        faceVisible: false, // Toutes les cartes commencent face cachée
+        faceVisible: true, // Toutes les cartes commencent face cachée
       });
       indexCarte++;
     }
