@@ -6,7 +6,7 @@ interface CarteProps {
 }
 
 export default function Carte1({ carte }: CarteProps) {
-  console.log('carte',carte)
+  // console.log('carte',carte)
   return (
     
       <img  alt={carte.code} src={carte.faceVisible ? `https://deckofcardsapi.com/static/img/${carte.code}.png`

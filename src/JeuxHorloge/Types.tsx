@@ -4,6 +4,7 @@ export interface CarteH {
     code: string;  // Code de la carte (par exemple 'AS', '2S', 'KH'...)
     image: string; 
     faceVisible: boolean;
+    value: string;
   }
   
   export interface Pile {
@@ -12,7 +13,7 @@ export interface CarteH {
   export interface EtatApp {
     piles: Pile[];
     pileCentrale: Pile;
-    paquet: string[];
+    paquet: CarteH[];
     cartesRevelees: CarteH[]; // Remplace string[] par CarteH[]
   }
   

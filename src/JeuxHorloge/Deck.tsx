@@ -1,32 +1,23 @@
+import { CarteH } from "./Types";
+
 export interface Cartes {
     valeur: string;
     couleur: string;
   }
   
   export const Deck = {
-    async creerPaquet(): Promise<string[]> {
-      try {
-        // Crée un nouveau paquet et récupère l'ID du paquet
-        const reponse = await fetch(
-          "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
-        );
-        const donnees = await reponse.json();
+    async creerPaquet(): Promise<CarteH[]> {
+  const response = await fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=52");
+  const data = await response.json();
+  return data.cards.map((card: any) => ({
+    code: card.code,
+    image: card.image,
+    faceVisible: false, // Default to face down
+    value: card.value
+  }));
+},
   
-        // Vérifie que la réponse contient un deck_id valide
-        if (donnees.success && donnees.deck_id) {
-          // Utilise le deck_id pour tirer les cartes
-          const paquet = await this.tirerCartes(donnees.deck_id);
-          return paquet;
-        } else {
-          throw new Error("Erreur lors de la création du paquet.");
-        }
-      } catch (error) {
-        console.error("Erreur lors de la récupération du paquet :", error);
-        return []; // Retourne un tableau vide en cas d'erreur
-      }
-    },
-  
-    async tirerCartes(deck_id: string): Promise<string[]> {
+    async tirerCartes(deck_id: string): Promise<CarteH[]> {
       try {
         // Tire 52 cartes du paquet créé
         const reponse = await fetch(
@@ -39,7 +30,7 @@ export interface Cartes {
         // Vérifie si les cartes sont présentes dans la réponse
         if (donnees.cards) {
           // Récupère les codes des cartes
-          return donnees.cards.map((carte: any) => carte.code);
+          return donnees.cards.map((carte: any) => carte);
         } else {
           throw new Error("Erreur lors de la récupération des cartes.");
         }

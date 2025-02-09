@@ -115,11 +115,17 @@ const Horloge: React.FC = () => {
       distribuerCartes(nouveauPaquet);
     };
 
+
     initialiserJeu();
   }, []);
 
-  const distribuerCartes = (paquet: string[]) => {
+
+  const distribuerCartes = (paquet: CarteH[]) => {
     const piles = Array(12).fill(null).map(() => ({ cartes: [] as CarteH[] }));
+
+    console.log(paquet)
+
+    
     const pileCentrale = { cartes: [] as CarteH[] };
 
     let indexCarte = 0;
@@ -127,24 +133,29 @@ const Horloge: React.FC = () => {
     // Mélanger le paquet pour distribuer les cartes de manière aléatoire
     paquet.sort(() => Math.random() - 0.5);
 
+
     // Distribution des 12 piles en cercle (4 cartes par pile, face cachée)
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < 12; j++) {
         piles[j].cartes.push({
-          code: paquet[indexCarte],
-          image: `https://deckofcardsapi.com/static/img/${paquet[indexCarte]}.png`,
+          code: paquet[indexCarte].code, // Correct ici
+          image: paquet[indexCarte].image, // Utiliser directement l'image de l'objet
           faceVisible: false, // Toutes les cartes commencent face cachée
+          value: paquet[indexCarte].value
         });
         indexCarte++;
       }
     }
 
+    console.log(piles)
+
     // Distribution de la pile centrale (4 cartes, face cachée)
     for (let i = 0; i < 4; i++) {
       pileCentrale.cartes.push({
-        code: paquet[indexCarte],
-        image: `https://deckofcardsapi.com/static/img/${paquet[indexCarte]}.png`,
-        faceVisible: true, // Toutes les cartes commencent face cachée
+        code: paquet[indexCarte].code, // Correct ici
+        image: paquet[indexCarte].image, // Utiliser l'image de l'objet
+        faceVisible: true,
+        value: paquet[indexCarte].value
       });
       indexCarte++;
     }
@@ -166,9 +177,11 @@ const Horloge: React.FC = () => {
   const deplacerCarte = (carte: CarteH, indexPile: number) => {
     const nouvellesPiles = [...etat.piles];
 
+    console.log('nouvellesPiles',nouvellesPiles);
+    
     // Vérifier si la carte peut être déplacée (par exemple, si elle est face visible)
     if (!carte.faceVisible) {
-      alert("Vous ne pouvez pas déplacer une carte face cachée !");
+      alert(`Vous ne pouvez pas déplacer une carte face cachée ! ${indexPile}`);
       return;
     }
 
